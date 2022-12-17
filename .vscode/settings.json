@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/326f1ab0-9c86-4c42-8eda-f6b509bf8aca/AppServices/subscriptions/326f1ab0-9c86-4c42-8eda-f6b509bf8aca/resourceGroups/Real_Estate_Group/providers/Microsoft.Web/sites/realestatebackendendgarcia",
+    "appService.deploySubpath": "."
+}

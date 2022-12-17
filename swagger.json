@@ -1,0 +1,1347 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Garcia Real State",
+    "description": "Backend Requests for nodeJS with MongoDB",
+    "license": {
+      "name": "None",
+      "url": ""
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Testar Ligacao",
+      "description": "Ver estado do Servidor"
+    },
+    {
+      "name": "Propriedades",
+      "description": "Obter Dados das propriedades"
+    },
+    {
+      "name": "Agências / Anunciantes",
+      "description": "Obter Dados das contas Anunciantes/Agencias"
+    },
+    {
+      "name": "Utilizadores Normais",
+      "description": "Obter Dados dos Utilizadores Normais"
+    },
+    {
+      "name": "Categorias",
+      "description": "Obter Dados das categorias"
+    },
+    {
+      "name": "Comodidades",
+      "description": "Obter Dados das Comodidades"
+    },
+    {
+      "name": "Localizacoes",
+      "description": "TO-DO"
+    },
+    {
+      "name": "Newsletter",
+      "description": "Gerir a Newsletter"
+    },
+    {
+      "name": "Blogs",
+      "description": "Gerir os Blogs"
+    }
+
+
+
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+
+  "paths": {
+    "/test": {
+      "get": {
+        "tags": ["Testar Ligacao"],
+        "summary": "Ping ao servidor",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/propriedades": {
+      "get": {
+        "tags": ["Propriedades"],
+        "summary": "Obter todas as Propriedades",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Propriedade"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Propriedades"],
+        "summary": "Adicionar uma nova Propriedade",
+        "parameters": [
+          {
+            "name": "Propriedade",
+            "in": "body",
+            "description": "Adicionar uma propriedade",
+            "schema": {
+              "$ref": "#/definitions/Propriedade"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Propriedade criada com sucesso",
+            "schema": {
+              "$ref": "#/definitions/Propriedade"
+            }
+          }
+        }
+      }
+    },
+    "/propriedades/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID da propriedade",
+          "type": "integer"
+        }
+      ],
+      "get": {
+        "tags": ["Propriedades"],
+        "summary": "Obter propriedade através do ID",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Propriedade"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Editar propriedade através do ID",
+        "tags": ["Propriedades"],
+        "parameters": [
+          {
+            "name": "propriedade",
+            "in": "body",
+            "description": "Adicionar novos valores da propriedade",
+            "schema": {
+              "$ref": "#/definitions/EditarPropriedade"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Propriedade Atualizada"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Apagar propriedade através do ID",
+        "tags": ["Propriedades"],
+        "responses": {
+          "200": {
+            "description": "Propriedade apagada"
+          }
+        }
+      }
+    },
+    "/propriedadesquerys/getpropriedadesbyviews": {
+      "get": {
+        "tags": ["Propriedades"],
+        "summary": "Obter propriedades por ordem de Mais visualizações. 8 resultados apenas.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Propriedade"
+            }
+          }
+        }
+      }
+    },
+    "/propriedadesquerys/getdestaquespaginaprincipal": {
+      "get": {
+        "tags": ["Propriedades"],
+        "summary": "Obter propriedades destacas na Seccao da Pagina Principal. 7 resultados apenas.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Propriedade"
+            }
+          }
+        }
+      }
+    },
+    "/agencias": {
+      "get": {
+        "tags": ["Agências / Anunciantes"],
+        "summary": "Obter todos os Anunciantes/Agencias",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Agencia"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Agências / Anunciantes"],
+        "summary": "Adicionar Anunciante/Agencia",
+        "parameters": [
+          {
+            "name": "Anunciante/Agencia",
+            "in": "body",
+            "description": "Adicionar um Anunciante/Agencia",
+            "schema": {
+              "$ref": "#/definitions/Agencia"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Anunciante/Agencia criado com sucesso",
+            "schema": {
+              "$ref": "#/definitions/Agencia"
+            }
+          }
+        }
+      }
+    },
+    "/agencias/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID do Anunciante/Agencia",
+          "type": "integer"
+        }
+      ],
+      "get": {
+        "tags": ["Agências / Anunciantes"],
+        "summary": "Obter Agencia/Anunciante através do ID",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Agencia"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Editar Agencia/Anunciante através do ID",
+        "tags": ["Agências / Anunciantes"],
+        "parameters": [
+          {
+            "name": "Anunciante/Agencia",
+            "in": "body",
+            "description": "Adicionar novos valores Anunciante/Agencias",
+            "schema": {
+              "$ref": "#/definitions/EditarAgencia"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Anunciante/Agencia Atualizado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Apagar Agencia/Anunciante através do ID",
+        "tags": ["Agências / Anunciantes"],
+        "responses": {
+          "200": {
+            "description": "Anunciante/Agencia apagada"
+          }
+        }
+      }
+    },
+    "/utilizador": {
+      "get": {
+        "tags": ["Utilizadores Normais"],
+        "summary": "Obter todos os Utilizadores",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Utilizador"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Utilizadores Normais"],
+        "summary": "Adicionar Utilizador",
+        "parameters": [
+          {
+            "name": "Utilizador",
+            "in": "body",
+            "description": "Adicionar um Utilizador",
+            "schema": {
+              "$ref": "#/definitions/Utilizador"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Utilizador criado com sucesso",
+            "schema": {
+              "$ref": "#/definitions/Utilizador"
+            }
+          }
+        }
+      }
+    },
+    "/utilizador/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID do Utilizador",
+          "type": "integer"
+        }
+      ],
+      "get": {
+        "tags": ["Utilizadores Normais"],
+        "summary": "Obter Utilizador através do ID",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Utilizador"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Editar Utilizador através do ID",
+        "tags": ["Utilizadores Normais"],
+        "parameters": [
+          {
+            "name": "Anunciante/Agencia",
+            "in": "body",
+            "description": "Adicionar novos valores para o Utilizador.",
+            "schema": {
+              "$ref": "#/definitions/EditarUtilizador"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilizador Atualizado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Apagar Utilizador através do ID",
+        "tags": ["Utilizadores Normais"],
+        "responses": {
+          "200": {
+            "description": "Utilizador apagada"
+          }
+        }
+      }
+    },
+    "/categorias": {
+      "get": {
+        "tags": ["Categorias"],
+        "summary": "Obter todas as categorias",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Categoria"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Categorias"],
+        "summary": "Adicionar categoria",
+        "parameters": [
+          {
+            "name": "Anunciante/Agencia",
+            "in": "body",
+            "description": "Adicionar um Anunciante/Agencia",
+            "schema": {
+              "$ref": "#/definitions/Categoria"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Categoria criada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/Categoria"
+            }
+          }
+        }
+      }
+    },
+    "/categorias/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID da Categoria",
+          "type": "integer"
+        }
+      ],
+      "get": {
+        "tags": ["Categorias"],
+        "summary": "Obter Categoria através do ID",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Categoria"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Apagar Categoria através do ID",
+        "tags": ["Categorias"],
+        "responses": {
+          "200": {
+            "description": "Categoria apagada."
+          }
+        }
+      }
+    },
+    "/comodidades": {
+      "get": {
+        "tags": ["Comodidades"],
+        "summary": "Obter todas as Comodidades",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Comodidade"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Comodidades"],
+        "summary": "Adicionar Comodidade",
+        "parameters": [
+          {
+            "name": "Nome",
+            "in": "body",
+            "description": "Adicionar uma Comodidade",
+            "schema": {
+              "$ref": "#/definitions/Comodidade"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Categoria criada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/Comodidade"
+            }
+          }
+        }
+      }
+    },
+    "/comodidades/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID da Comodidade",
+          "type": "integer"
+        }
+      ],
+      "get": {
+        "tags": ["Comodidades"],
+        "summary": "Obter Comodidade através do ID",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Categoria"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Apagar Comodidade através do ID",
+        "tags": ["Comodidades"],
+        "responses": {
+          "200": {
+            "description": "Comodidade apagada."
+          }
+        }
+      }
+    },
+    "/localizacoes": {
+      "get": {
+        "tags": ["Localizacoes"],
+        "summary": "Obter todas as locations",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Localizacoes"
+            }
+          }
+        }
+      }
+    },
+    "/newsletter": {
+      "get": {
+        "tags": ["Newsletter"],
+        "summary": "Obter todos os users de Newsletter",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Newsletter"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Newsletter"],
+        "summary": "Adicionar Utilizador",
+        "parameters": [
+          {
+            "name": "Utilizador",
+            "in": "body",
+            "description": "Adicionar um user á newsletter",
+            "schema": {
+              "$ref": "#/definitions/Newsletter"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "User adicionado com sucesso",
+            "schema": {
+              "$ref": "#/definitions/Newsletter"
+            }
+          }
+        }
+      }
+    },
+    "/newsletter/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID do Utilizador de Newsletter",
+          "type": "integer"
+        }
+      ],
+      "get": {
+        "tags": ["Newsletter"],
+        "summary": "Obter Utilizador de Newsletter através do ID",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Newsletter"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Editar Utilizador de Newsletter através do ID",
+        "tags": ["Newsletter"],
+        "parameters": [
+          {
+            "name": "User de Newsletter",
+            "in": "body",
+            "description": "Adicionar novos valores para o Utilizador.",
+            "schema": {
+              "$ref": "#/definitions/EditarNewsletter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilizador de Newsletter Atualizado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Apagar Utilizador de Newsletter através do ID",
+        "tags": ["Newsletter"],
+        "responses": {
+          "200": {
+            "description": "Utilizador apagado da Newsletter."
+          }
+        }
+      }
+    },
+    "/blogs": {
+      "get": {
+        "tags": ["Blogs"],
+        "summary": "Obter todos os posts de Blog",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Blogs"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Blogs"],
+        "summary": "Adicionar post",
+        "parameters": [
+          {
+            "name": "Blog",
+            "in": "body",
+            "description": "Adicionar um post ao Blog",
+            "schema": {
+              "$ref": "#/definitions/Blogs"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Post adicionado com sucesso",
+            "schema": {
+              "$ref": "#/definitions/Blogs"
+            }
+          }
+        }
+      }
+    },
+    "/blogs/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID do post de Blog",
+          "type": "integer"
+        }
+      ],
+      "get": {
+        "tags": ["Blogs"],
+        "summary": "Obter post de Blog através do ID",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Blogs"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Editar post de blog através do ID",
+        "tags": ["Blogs"],
+        "parameters": [
+          {
+            "name": "Post do blog",
+            "in": "body",
+            "description": "Adicionar novos valores para o Utilizador.",
+            "schema": {
+              "$ref": "#/definitions/EditarBlogs"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Post Atualizado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Apagar post do blog através do ID",
+        "tags": ["Blogs"],
+        "responses": {
+          "200": {
+            "description": "Post apagado da Blog."
+          }
+        }
+      }
+    },
+    "/blogsquerys/getblogsbyviews": {
+      "get": {
+        "tags": ["Blogs"],
+        "summary": "Obter posts por ordem de Mais visualizações. 4 resultados apenas.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Blogs"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Propriedade": {
+      "required": ["titulo", "_id"],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true,
+          "required": true
+        },
+        "titulo": {
+          "type": "string",
+          "required": true
+        },
+        "localizacao": {
+          "type": "string"
+        },
+        "preco": {
+          "type": "integer"
+        },
+        "tipodenegocio": {
+          "type": "string"
+        },
+        "datadecriacao": {
+          "type": "string",
+          "format": "date"
+        },
+        "datadeAtualizacao": {
+          "type": "string",
+          "format": "date"
+        },
+        "imagens": {
+          "type": "string"
+        },
+        "areautil": {
+          "type": "number"
+        },
+        "areabruta": {
+          "type": "number"
+        },
+        "anoconstrucao": {
+          "type": "number"
+        },
+        "estado": {
+          "type": "string"
+        },
+        "tipologia": {
+          "type": "string"
+        },
+        "casasdebanho": {
+          "type": "number"
+        },
+        "quartos": {
+          "type": "number"
+        },
+        "certicadoenergetico": {
+          "type": "string"
+        },
+        "descricao": {
+          "type": "string"
+        },
+        "caracteristicas": {
+          "type": "string"
+        },
+
+        "precosanteriores": {
+          "type": "string"
+        },
+        "vendedor": {
+          "type": "string"
+        },
+        "tipodeanuncio": {
+          "type": "string"
+        },
+        "idplataforma": {
+          "type": "number"
+        },
+        "idagente": {
+          "type": "number"
+        },
+        "destacado": {
+          "type": "boolean",
+          "default": false
+        },
+        "destaquepaginaprincipal": {
+          "type": "boolean",
+          "default": false
+        },
+        "tipodedestaque": {
+          "type": "string"
+        },
+        "visualizacoesAnuncio": {
+          "type": "number"
+        },
+        "presenteEmFavoritos": {
+          "type": "number"
+        }
+      }
+    },
+    "EditarPropriedade": {
+      "properties": {
+        "titulo": {
+          "type": "string"
+        },
+        "localizacao": {
+          "type": "string"
+        },
+        "preco": {
+          "type": "integer"
+        },
+        "datadecriacao": {
+          "type": "string",
+          "format": "date"
+        },
+        "datadeAtualizacao": {
+          "type": "string",
+          "format": "date"
+        },
+        "imagens": {
+          "type": "string"
+        },
+        "areautil": {
+          "type": "number"
+        },
+        "areabruta": {
+          "type": "number"
+        },
+        "anoconstrucao": {
+          "type": "number"
+        },
+        "estado": {
+          "type": "string"
+        },
+        "tipologia": {
+          "type": "string"
+        },
+        "casasdebanho": {
+          "type": "number"
+        },
+        "quartos": {
+          "type": "number"
+        },
+        "certicadoenergetico": {
+          "type": "string"
+        },
+        "descricao": {
+          "type": "string"
+        },
+        "caracteristicas": {
+          "type": "string"
+        },
+
+        "precosanteriores": {
+          "type": "string"
+        },
+        "vendedor": {
+          "type": "string"
+        },
+        "tipodeanuncio": {
+          "type": "string"
+        },
+        "idplataforma": {
+          "type": "number"
+        },
+        "idagente": {
+          "type": "number"
+        },
+        "destacado": {
+          "type": "boolean",
+          "default": false
+        },
+        "destaquepaginaprincipal": {
+          "type": "boolean",
+          "default": false
+        },
+        "tipodedestaque": {
+          "type": "string"
+        }
+      }
+    },
+    "Agencia": {
+      "required": ["email", "_id"],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true,
+          "required": true
+        },
+        "email": {
+          "type": "string",
+          "uniqueItems": true,
+          "required": true
+        },
+        "password": {
+          "type": "string",
+          "required": true
+        },
+        "nomePerfil": {
+          "type": "string",
+          "required": true
+        },
+        "quantidadeAnuncios": {
+          "type": "number"
+        },
+        "dataRegisto": {
+          "type": "string",
+          "format": "date"
+        },
+        "fotodecapa": {
+          "type": "string"
+        },
+        "imagemperfil": {
+          "type": "string"
+        },
+        "descrição": {
+          "type": "string"
+        },
+        "morada": {
+          "type": "string"
+        },
+        "licencaAMI": {
+          "type": "string"
+        },
+        "idiomas": {
+          "type": "string"
+        },
+        "contactoTelefonico": {
+          "type": "integer"
+        },
+        "instagram": {
+          "type": "string"
+        },
+        "facebook": {
+          "type": "string"
+        },
+        "linkedin": {
+          "type": "string"
+        },
+        "twitter": {
+          "type": "string"
+        },
+        "destacado": {
+          "type": "boolean",
+
+          "default": false
+        },
+        "tipodeDestaque": {
+          "type": "string"
+        },
+        "urlExterno": {
+          "type": "string"
+        },
+        "visualizacoesPerfil": {
+          "type": "number"
+        },
+        "presenteEmFavoritos": {
+          "type": "number"
+        },
+        "propriedadesFavoritas": {
+          "type": "string"
+        }
+      }
+    },
+    "EditarAgencia": {
+      "properties": {
+        "email": {
+          "type": "string",
+          "required": true,
+          "uniqueItems": true
+        },
+        "password": {
+          "type": "string",
+          "required": true
+        },
+        "nomePerfil": {
+          "type": "string",
+          "required": true
+        },
+        "quantidadeAnuncios": {
+          "type": "number"
+        },
+        "fotodecapa": {
+          "type": "string"
+        },
+        "imagemperfil": {
+          "type": "string"
+        },
+        "descrição": {
+          "type": "string"
+        },
+        "morada": {
+          "type": "string"
+        },
+        "licencaAMI": {
+          "type": "string"
+        },
+        "idiomas": {
+          "type": "string"
+        },
+        "contactoTelefonico": {
+          "type": "integer"
+        },
+        "instagram": {
+          "type": "string"
+        },
+        "facebook": {
+          "type": "string"
+        },
+        "linkedin": {
+          "type": "string"
+        },
+        "twitter": {
+          "type": "string"
+        },
+        "destacado": {
+          "type": "boolean",
+
+          "default": false
+        },
+        "tipodeDestaque": {
+          "type": "string"
+        },
+        "urlExterno": {
+          "type": "string"
+        },
+        "visualizacoesPerfil": {
+          "type": "number"
+        },
+        "presenteEmFavoritos": {
+          "type": "number"
+        },
+        "propriedadesFavoritas": {
+          "type": "string"
+        }
+      }
+    },
+    "Utilizador": {
+      "required": ["email", "_id"],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true,
+          "required": true
+        },
+        "email": {
+          "type": "string",
+          "uniqueItems": true,
+          "required": true
+        },
+        "password": {
+          "type": "string",
+          "required": true
+        },
+        "nomePerfil": {
+          "type": "string",
+          "required": true
+        },
+        "dataRegisto": {
+          "type": "string",
+          "format": "date"
+        },
+        "morada": {
+          "type": "string"
+        },
+        "idiomas": {
+          "type": "string"
+        },
+        "contactoTelefonico": {
+          "type": "integer"
+        },
+        "propriedadesFavoritas": {
+          "type": "string"
+        }
+      }
+    },
+    "EditarUtilizador": {
+      "properties": {
+        "email": {
+          "type": "string",
+          "uniqueItems": true,
+          "required": true
+        },
+        "password": {
+          "type": "string",
+          "required": true
+        },
+        "nomePerfil": {
+          "type": "string",
+          "required": true
+        },
+        "dataRegisto": {
+          "type": "string",
+          "format": "date"
+        },
+        "morada": {
+          "type": "string"
+        },
+        "idiomas": {
+          "type": "string"
+        },
+        "contactoTelefonico": {
+          "type": "integer"
+        },
+        "propriedadesFavoritas": {
+          "type": "string"
+        }
+      }
+    },
+    "Categoria": {
+      "required": ["nome", "_id"],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true,
+          "required": true
+        },
+        "nome": {
+          "type": "string",
+          "uniqueItems": true,
+          "required": true
+        },
+        "slug": {
+          "type": "string",
+          "uniqueItems": true,
+          "required": true
+        },
+        "subcategorias": {
+          "type": "string",
+          "required": true
+        },
+        "quantidadepropriedades": {
+          "type": "integer"
+        }
+      }
+    },
+    "Comodidade": {
+      "required": ["nome", "_id"],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true,
+          "required": true
+        },
+        "nome": {
+          "type": "string",
+          "uniqueItems": true,
+          "required": true
+        },
+        "slug": {
+          "type": "string",
+          "uniqueItems": true,
+          "required": true
+        },
+        "quantidadepropriedades": {
+          "type": "integer"
+        }
+      }
+    },
+    "Localizacoes": {
+      "required": ["nome", "_id"],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true,
+          "required": true
+        },
+        "nome": {
+          "type": "string",
+          "uniqueItems": true,
+          "required": true
+        }
+      }
+    },
+    "Newsletter": {
+      "required": ["email", "_id", "nomePerfil"],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true,
+          "required": true
+        },
+        "email": {
+          "type": "string",
+          "uniqueItems": true,
+          "required": true
+        },
+        "nomePerfil": {
+          "type": "string",
+          "required": true
+        },
+        "idiomas": {
+          "type": "string"
+        },
+        "contactoTelefonico": {
+          "type": "integer"
+        },
+        "instagram": {
+          "type": "string"
+        },
+        "facebook": {
+          "type": "string"
+        },
+        "linkedin": {
+          "type": "string"
+        },
+        "twitter": {
+          "type": "string"
+        }
+      }
+    },
+    "EditarNewsletter": {
+      "properties": {
+        "email": {
+          "type": "string",
+          "uniqueItems": true,
+          "required": true
+        },
+        "nomePerfil": {
+          "type": "string",
+          "required": true
+        },
+        "idiomas": {
+          "type": "string"
+        },
+        "contactoTelefonico": {
+          "type": "integer"
+        },
+        "instagram": {
+          "type": "string"
+        },
+        "facebook": {
+          "type": "string"
+        },
+        "linkedin": {
+          "type": "string"
+        },
+        "twitter": {
+          "type": "string"
+        }
+      }
+    },
+    "Blogs": {
+      "required": ["titulo", "_id"],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true,
+          "required": true
+        },
+        "titulo": {
+          "type": "string",
+          "uniqueItems": true,
+          "required": true
+        },
+        "blogthumbnail": {
+          "type": "string",
+          "required": true
+        },
+        "bloginsidePicture": {
+          "type": "string",
+          "required": true
+        },
+        "blogshortdescricao": {
+          "type": "number"
+        },
+        "visualizacoesAnuncio": {
+          "type": "number"
+        },
+        "autor": {
+          "type": "string",
+          "format": "date"
+        },
+        "imagemautor": {
+          "type": "string"
+        },
+        "datadecriacao": {
+          "type": "string",
+          "format": "date"
+        },
+        "datadeAtualizacao": {
+          "type": "string",
+          "format": "date"
+        },
+        "textodoblog": {
+          "type": "string"
+        },
+        "etiquetas": {
+          "type": "string"
+        },
+        "categorias": {
+          "type": "string"
+        }
+      }
+    },
+    "EditarBlogs": {
+      "properties": {
+        "titulo": {
+          "type": "string",
+          "uniqueItems": true,
+          "required": true
+        },
+        "blogthumbnail": {
+          "type": "string",
+          "required": true
+        },
+        "bloginsidePicture": {
+          "type": "string",
+          "required": true
+        },
+        "blogshortdescricao": {
+          "type": "number"
+        },
+        "visualizacoesAnuncio": {
+          "type": "number"
+        },
+        "autor": {
+          "type": "string",
+          "format": "date"
+        },
+        "imagemautor": {
+          "type": "string"
+        },
+        "datadecriacao": {
+          "type": "string",
+          "format": "date"
+        },
+        "datadeAtualizacao": {
+          "type": "string",
+          "format": "date"
+        },
+        "textodoblog": {
+          "type": "string"
+        },
+        "etiquetas": {
+          "type": "string"
+        },
+        "categorias": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
