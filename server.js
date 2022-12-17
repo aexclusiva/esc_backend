@@ -1,4 +1,4 @@
-var app = require("../app");
+var app = require("./app");
 const start = async () => {
   try {
     app.listen(3000, () => console.log("Server started on port 3000"));
