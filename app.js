@@ -294,7 +294,7 @@ app.use("/auth/", authRouter);
 
 //finish tests
 app.get("/", (req, res) => {
-  res.redirect("http://localhost:3001/");
+  return res.json({ message: "Servidor em funcionamento! ✌️" });
 });
 
 app.get("/utilizador", async (req, res) => {
